@@ -1,0 +1,21 @@
+Package: DSEATM
+Title: drug set enrichment analysis based on text mining
+Version: 1.0.0
+Authors@R: 
+    person(given = "Zhi-Hui",
+           family = "Luo",
+           role = c("aut", "cre"),
+           email = "luozhihui1123@163.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Depends: R (>=
+        3.4.0),clusterProfiler,RSQLite,AnnotationDbi,org.Hs.eg.db
+Description: We have extract the disease-drug and drug-gene associations from MEDLINE publications. the DSEATM has been implemented to display and use these data.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+NeedsCompilation: no
+Packaged: 2022-06-16 17:13:58 UTC; zhihl
+Author: Zhi-Hui Luo [aut, cre] (YOUR-ORCID-ID)
+Maintainer: Zhi-Hui Luo <luozhihui1123@163.com>
