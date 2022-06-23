@@ -4,10 +4,17 @@
 \alias{disease2drug}
 \title{Select the disease related drugs}
 \usage{
-disease2drug(DiseaseMeSHID)
+disease2drug(DiseaseMeSHID, Repository = "DSEATM")
 }
 \arguments{
-\item{DiseaseMeSHID}{the MeSH id of intersted disease, only Main heading diseases were allowed}
+\item{DiseaseMeSHID}{The MeSH id of intersted disease, only Main heading diseases are allowed here.}
+
+\item{Repository}{one of the values in c("ALL", "DSEATM").
+"ALL" means all MeSH terms in "D" category will be obtained in the disease-drug association.
+In this condition, all the terms are chemical and drugs.
+"DSEATM" means only MeSH terms below "ChemicalActionsandUses", "OrganicChemicals" and "Compounds,Heterocyclic"
+
+The default is "DSEATM"}
 }
 \value{
 dataframe
@@ -16,7 +23,7 @@ dataframe
 Select the disease related drugs
 }
 \examples{
-disease2drug("D015179")
-
+df = disease2drug("D015179")
+df = disease2drug("D015179", Repository="ALL")
 
 }

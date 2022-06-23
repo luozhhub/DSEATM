@@ -7,16 +7,23 @@
 disease2pathway(DiseaseMeSHID)
 }
 \arguments{
-\item{DiseaseMeSHID}{the MeSH id of intersted disease}
+\item{DiseaseMeSHID}{the MeSH id of intersted disease, only MeSH main headings are allowed here.}
 }
 \value{
 dataframe it containing the pathways enriched
 }
 \description{
-Enriched the pathways for diseases
+The disease2pathway function is used to calculate the enrichment
+of disease genes. Given an input gene set,
+it invokes the clusterProfiler to realize the enrichment function.
+The gene set can be retived by a disease name.
+DSEATM used a diseases associated drugs to get associated genes,
 }
 \examples{
 disease2pathway("D015179")
 
 
+}
+\author{
+Zhi-Hui Luo, Ya-Min Wang
 }
