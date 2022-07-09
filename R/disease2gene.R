@@ -1,8 +1,19 @@
 #' Select the disease related genes by drugs
 #'
 #' @param DiseaseMeSHID the MeSH id of intersted disease
+#' @param Repository one of the values in c("ALL", "DSEATM").
+#' "ALL" means all MeSH terms in "D" category will be obtained in the disease-drug association.
+#' In this condition, all the terms are chemical and drugs.
+#' "DSEATM" means only MeSH terms below "ChemicalActionsandUses", "OrganicChemicals" and "Compounds,Heterocyclic"
 #'
-#' @return vactor it containing Entrez gene IDs related to the diseases.
+#' The default is "DSEATM"
+#'
+#' @return dataframe It containing MeSHID, GENEID and group.
+#' MESHID is MeSH drug and chemical terms ID.
+#' GENEID is Entrez gene ID.
+#' group is the drug-gene relation source. fisher_test means relations extracted from publication abstracts,
+#' meshr means relations extracted from MeSH.Hsg.eg.db
+#'
 #'
 #' @importFrom RSQLite dbConnect
 #' @importFrom RSQLite SQLite
@@ -12,9 +23,9 @@
 #' disease2gene("D015179")
 #'
 #'
-disease2gene <- function(DiseaseMeSHID) {
+disease2gene <- function(DiseaseMeSHID, Repository="DSEATM") {
   dis <- DiseaseMeSHID
-  con <- loadDisease2drugDb(data_type="Disease")
+  con <- loadDisease2drugDb(data_type="Disease", Repository=Repository)
   res <- RSQLite::dbSendQuery(con,
                      sprintf("SELECT * FROM disease2drug WHERE Disease = %s%s%s",
                              "'", dis, "'"))
@@ -30,10 +41,10 @@ disease2gene <- function(DiseaseMeSHID) {
                "D012102","D019141","D000077444","D018758","D064804")
   drug_list = drug_list[!drug_list %in% rm_drug]
 
-  d_con <- loadDisease2drugDb(data_type="Drug")
+  d_con <- loadDisease2drugDb(data_type="Drug", Repository=Repository)
   df_drugGenes = RSQLite::dbReadTable(d_con, "drug2gene")
   RSQLite::dbDisconnect(d_con)
 
-  genes = df_drugGenes[df_drugGenes$MESHID %in% drug_list,]$GENEID
-  return(unique(genes))
+  genes_df = df_drugGenes[df_drugGenes$MESHID %in% drug_list,]
+  return(genes_df)
 }

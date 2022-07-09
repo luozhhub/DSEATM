@@ -8,7 +8,7 @@
 #'
 #' The default is "DSEATM"
 #'
-#' @return dataframe
+#' @return dataframe It contained all drugs associated to a specific diseases.
 #'
 #' @importFrom RSQLite dbConnect
 #' @importFrom RSQLite SQLite
@@ -16,10 +16,20 @@
 #'
 #' @export
 #' @examples
+#' #here, we only give out the drug ID in the table,
+#' #detail information for each drug can be retrived by pyMeSHSim
+#' #get disease-drug association in DSEATM repository
 #' df = disease2drug("D015179")
 #' # when using ALL repository,
 #' # the disease-drug associations are in indeed disease-chemical associations
+#' # Users can filter the drugs by their own principles in this data set.
 #' df = disease2drug("D015179", Repository="ALL")
+#'
+#' #get CMap drugs associated to a disease
+#' df = disease2drug("D015179", Repository="ALL")
+#' df_cmap = df[df$Drug %in% DSEATM::cmap_drug$meshID,]
+#'
+#'
 #'
 disease2drug <- function(DiseaseMeSHID, Repository="DSEATM") {
   dis <- DiseaseMeSHID
@@ -38,4 +48,3 @@ disease2drug <- function(DiseaseMeSHID, Repository="DSEATM") {
   return(as.data.frame(RSQLite::dbFetch(res)))
 
 }
-
