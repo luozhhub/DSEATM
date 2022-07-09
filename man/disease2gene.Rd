@@ -4,13 +4,24 @@
 \alias{disease2gene}
 \title{Select the disease related genes by drugs}
 \usage{
-disease2gene(DiseaseMeSHID)
+disease2gene(DiseaseMeSHID, Repository = "DSEATM")
 }
 \arguments{
 \item{DiseaseMeSHID}{the MeSH id of intersted disease}
+
+\item{Repository}{one of the values in c("ALL", "DSEATM").
+"ALL" means all MeSH terms in "D" category will be obtained in the disease-drug association.
+In this condition, all the terms are chemical and drugs.
+"DSEATM" means only MeSH terms below "ChemicalActionsandUses", "OrganicChemicals" and "Compounds,Heterocyclic"
+
+The default is "DSEATM"}
 }
 \value{
-vactor it containing Entrez gene IDs related to the diseases.
+dataframe It containing MeSHID, GENEID and group.
+MESHID is MeSH drug and chemical terms ID.
+GENEID is Entrez gene ID.
+group is the drug-gene relation source. fisher_test means relations extracted from publication abstracts,
+meshr means relations extracted from MeSH.Hsg.eg.db
 }
 \description{
 Select the disease related genes by drugs

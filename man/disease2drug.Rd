@@ -17,13 +17,25 @@ In this condition, all the terms are chemical and drugs.
 The default is "DSEATM"}
 }
 \value{
-dataframe
+dataframe It contained all drugs associated to a specific diseases.
 }
 \description{
 Select the disease related drugs
 }
 \examples{
+#here, we only give out the drug ID in the table,
+#detail information for each drug can be retrived by pyMeSHSim
+#get disease-drug association in DSEATM repository
 df = disease2drug("D015179")
+# when using ALL repository,
+# the disease-drug associations are in indeed disease-chemical associations
+# Users can filter the drugs by their own principles in this data set.
 df = disease2drug("D015179", Repository="ALL")
+
+#get CMap drugs associated to a disease
+df = disease2drug("D015179", Repository="ALL")
+df_cmap = df[df$Drug \%in\% DSEATM::cmap_drug$meshID,]
+
+
 
 }

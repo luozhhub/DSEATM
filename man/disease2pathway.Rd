@@ -4,13 +4,37 @@
 \alias{disease2pathway}
 \title{Enriched the pathways for diseases}
 \usage{
-disease2pathway(DiseaseMeSHID)
+disease2pathway(
+  DiseaseMeSHID,
+  Repository = "DSEATM",
+  data_source = "ALL",
+  gene_freq = 1
+)
 }
 \arguments{
 \item{DiseaseMeSHID}{the MeSH id of intersted disease, only MeSH main headings are allowed here.}
+
+\item{Repository}{one of the values in c("ALL", "DSEATM").
+"ALL" means all MeSH terms in "D" category will be obtained in the disease-drug association.
+In this condition, all the terms are chemical and drugs.
+"DSEATM" means only MeSH terms below "ChemicalActionsandUses", "OrganicChemicals" and "Compounds,Heterocyclic"
+
+The default is "DSEATM"}
+
+\item{data_source}{It denotes the drug-gene relation source used in enrichment, one of the values in c("ALL", "mineR", "meshr")
+"ALL" means all drug-gene relations are used to extract drug-gene association.
+"mineR" means only drug-gene relations extracted by pubmed.mineR from publication abstracts were used.
+"meshr" means only drug-gene relations extracted from MeSH.Hsg.eg.db were used.
+
+The default is "ALL"}
+
+\item{gene_freq}{An integer describing the frequence thresould of genes used in enrichment.
+A higher gene_freq means genes associated with more MeSH drug and chemical iterms are used.
+
+The default is 1}
 }
 \value{
-dataframe it containing the pathways enriched
+dataframe It containing the pathways enriched
 }
 \description{
 The disease2pathway function is used to calculate the enrichment
@@ -20,8 +44,9 @@ The gene set can be retived by a disease name.
 DSEATM used a diseases associated drugs to get associated genes,
 }
 \examples{
-disease2pathway("D015179")
-
+# get pathways enriched for breast cancer
+disease2pathway("D001943")
+disease2pathway("D001943", data_source="ALL", gene_freq=2)
 
 }
 \author{
