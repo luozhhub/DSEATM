@@ -1,6 +1,8 @@
 # DSEATM
 drug set enrichment analysis based on text mining
 
+cite：Luo Z H, Zhu L D, Wang Y M, et al. DSEATM: drug set enrichment analysis uncovering disease mechanisms by biomedical text mining[J]. Briefings in Bioinformatics, 2022. https://doi.org/10.1093/bib/bbac228
+
 ##Install this package in R studio
 
 ```{r}
